@@ -1,3 +1,0 @@
-numpy>=1.20
-pyserial>=3.5
-pigpio>=1.78   # opcional, solo para servomotores
