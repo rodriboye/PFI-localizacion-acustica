@@ -1,12 +1,4 @@
-# Sistema de Estimación de Dirección de Arribo (DOA) Acústico
-
 Estimación en tiempo real del ángulo de llegada de sonido usando dos micrófonos MEMS INMP441, algoritmo GCC-PHAT, seguimiento con servomotor, y registro de eventos acústicos.
-
-**Autor:** Rodrigo Boyé
-**Proyecto Final Integrador** — Ingeniería en Telecomunicaciones
-Universidad Nacional de Río Negro — Trabajo realizado con Invap
-Bariloche, Argentina, 2026
-
 
 ## Qué hace el sistema
 
@@ -20,7 +12,7 @@ El ángulo de salida va de 0° a 180°, donde 90° es el frente del array (broad
 | Archivo | Descripción |
 |---|---|
 | `main.py` | Programa principal. Todo el sistema en un solo archivo. |
-| `setup_rpi_i2s.sh` | Script de configuración de I2S en la Raspberry Pi. Ejecutar una vez antes de usar. |
+| `setup_rpi_i2s.sh` | Script de configuración de I2S en la Raspberry Pi. Ejecutar una única vez antes de usar. |
 | `eventos_doa.csv` | Log de eventos (se crea automáticamente al ejecutar). |
 
 
