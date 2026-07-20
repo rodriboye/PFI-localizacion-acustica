@@ -1,0 +1,23 @@
+# Dependencias unificadas para el Sistema de Localización de Fuente de Sonido
+# Soporta tanto el sistema de 4 micrófonos (4mics) como el de 2 micrófonos (2mics)
+
+# === COMPUTACIÓN CIENTÍFICA ===
+numpy>=1.21.0
+scipy>=1.7.0
+
+# === AUDIO ===
+sounddevice>=0.4.4              # Captura de audio en tiempo real
+
+# === CONTROL DE HARDWARE ===
+gpiozero>=2.0.0                 # Control de GPIO de alto nivel
+pigpio>=1.78.0                  # Control de GPIO de bajo nivel
+colorzero>=2.0.0                # Utilidad para gpiozero
+
+# === COMUNICACIÓN ===
+pyserial>=3.5                   # Comunicación serial
+
+# === DESARROLLO Y TESTING ===
+pytest>=7.0.0                   # Testing
+pytest-cov>=4.0.0               # Coverage para tests
+black>=23.0.0                   # Formateo de código
+flake8>=5.0.0                   # Linting
