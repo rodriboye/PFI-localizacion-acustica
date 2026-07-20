@@ -1,9 +1,14 @@
-# tesis-ssl — Sistema de Localización de Fuente de Sonido
+# Sistema de Localización de Fuente de Sonido
+
+**Proyecto Final Integrador** - Ingeniería en Telecomunicaciones
 
 **Autor:** Rodrigo Boyé
-**Proyecto Final Integrador** — Ingeniería en Telecomunicaciones
-Universidad Nacional de Río Negro — Trabajo realizado con Invap
-Bariloche, Argentina, 2026
+
+Universidad Nacional de Río Negro - Invap
+
+Bariloche, Argentina
+
+2026
 
 Estimación de la dirección de arribo (DOA) de una fuente sonora en tiempo real sobre Raspberry Pi. El repositorio contiene dos sistemas independientes y el material de la tesis (documento, referencias).
 
@@ -20,12 +25,12 @@ Cada carpeta es autocontenida: tiene su propio README con instalación, uso y pa
 
 ```
 tesis-ssl/
-├── 2 microfonos/               # Sistema DOA de 2 micrófonos (GCC-PHAT)
-├── 4 microfonos/               # Sistema DOA de 4 micrófonos (MUSIC / SRP-PHAT)
-├── Informe PFI.pdf		# Documento que desarrolla el proyecto
-├── referencias/		# Papers citados (PDF)
-├── requirements.txt            # Dependencias Python unificadas (ambos sistemas)
-└── setup_venv.sh               # Script para crear el entorno virtual
+├── 2mics/              # Sistema DOA de 2 micrófonos (GCC-PHAT)
+├── 4mics/              # Sistema DOA de 4 micrófonos (MUSIC / SRP-PHAT)
+├── Informe PFI.pdf		  # Documento que desarrolla el proyecto
+├── referencias/		    # Papers citados (PDF)
+├── requirements.txt    # Dependencias Python unificadas (ambos sistemas)
+└── setup_venv.sh       # Script para crear el entorno virtual
 ```
 
 ## Instalación (entorno unificado)
