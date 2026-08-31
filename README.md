@@ -1,14 +1,14 @@
 # Sistema de Localización de Fuente de Sonido
 
-**Autor:** Rodrigo Boyé
-
 **Proyecto Final Integrador** — Ingeniería en Telecomunicaciones
+
+**Autor:** Rodrigo Boyé
 
 Universidad Nacional de Río Negro
 
 Bariloche, Argentina, 2026
 
-Estimación de la dirección de arribo (DOA) de una fuente sonora en tiempo real sobre Raspberry Pi. El repositorio contiene dos sistemas independientes y el material de la tesis (informe, referencias, planos, videos).
+Estimación de la dirección de arribo (DOA) de una fuente sonora en tiempo real sobre Raspberry Pi. El repositorio contiene dos sistemas independientes y material del proyecto (informe, referencias, planos, videos).
 
 ## Sistemas
 
@@ -23,14 +23,14 @@ Cada carpeta es autocontenida: tiene su propio README con instalación, uso y pa
 
 ```
 tesis-ssl/
-├── 2 microfonos/         # Sistema DOA de 2 micrófonos (GCC-PHAT)
-├── 4 microfonos/         # Sistema DOA de 4 micrófonos (MUSIC / SRP-PHAT)
-├── Informe PFI.pdf		    # Documento que desarrolla el proyecto
-├── Referencias/		      # PDFs de algunos de los papers y libros citados
-├── Planos/		            # Esquemáticos y PCBs para ambos sistemas, exportables a EasyEDA
-├── Extras/		            # Videos de los sistemas, informe de la PPS previa, entre otros
-├── requirements.txt      # Dependencias Python unificadas (ambos sistemas)
-└── setup_venv.sh         # Script para crear el entorno virtual
+├── 2mics/             # Sistema DOA de 2 micrófonos (GCC-PHAT)
+├── 4mics/             # Sistema DOA de 4 micrófonos (MUSIC / SRP-PHAT)
+├── Informe PFI.pdf    # Documento que desarrolla el proyecto
+├── Referencias/		   # PDFs de algunos de los papers y libros citados
+├── Planos/		         # Esquemáticos y PCBs para ambos sistemas, exportables a EasyEDA
+├── Extras/		         # Videos de los sistemas, informe de la PPS previa, entre otros
+├── requirements.txt   # Dependencias Python unificadas (ambos sistemas)
+└── setup_venv.sh      # Script para crear el entorno virtual
 ```
 
 ## Instalación (entorno unificado)
