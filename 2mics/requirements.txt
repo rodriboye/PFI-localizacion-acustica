@@ -1,0 +1,7 @@
+numpy>=1.21.0
+scipy>=1.7.0
+sounddevice>=0.4.4
+gpiozero>=2.0.0
+colorzero>=2.0.0
+pigpio>=1.78.0
+pyserial>=3.5
