@@ -1,18 +1,21 @@
-# tesis-ssl — Sistema de Localización de Fuente de Sonido
+# Sistema de Localización de Fuente de Sonido
 
 **Autor:** Rodrigo Boyé
+
 **Proyecto Final Integrador** — Ingeniería en Telecomunicaciones
-Universidad Nacional de Río Negro — Trabajo realizado con Invap
+
+Universidad Nacional de Río Negro
+
 Bariloche, Argentina, 2026
 
-Estimación de la dirección de arribo (DOA) de una fuente sonora en tiempo real sobre Raspberry Pi. El repositorio contiene dos sistemas independientes y el material de la tesis (documento, referencias).
+Estimación de la dirección de arribo (DOA) de una fuente sonora en tiempo real sobre Raspberry Pi. El repositorio contiene dos sistemas independientes y el material de la tesis (informe, referencias, planos, videos).
 
 ## Sistemas
 
 | Carpeta | Qué hace | Hardware |
 |---|---|---|
 | [`2mics/`](2mics/README.md) | DOA 1D (azimut, 0–180°) con GCC-PHAT. Seguimiento con un servo. | 2× INMP441 + RPi + 1 servo (opcional) |
-| [`4mics/`](4mics/README.md) | DOA 2D (azimut + elevación) con MUSIC. Detección de dron por firma armónica, seguimiento con 2 servos. | 4× INMP441 + ESP32 (frontend I2S) + RPi + 2 servos (opcional) |
+| [`4mics/`](4mics/README.md) | DOA 2D (azimut + elevación) con MUSIC o SRP-PHAT. Detección de dron por firma armónica, seguimiento con 2 servos. | 4× INMP441 + ESP32 (frontend I2S) + RPi + 2 servos (opcional) |
 
 Cada carpeta es autocontenida: tiene su propio README con instalación, uso y parámetros. Ver esos archivos para el detalle de cada sistema.
 
