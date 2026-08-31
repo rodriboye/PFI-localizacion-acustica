@@ -23,12 +23,14 @@ Cada carpeta es autocontenida: tiene su propio README con instalación, uso y pa
 
 ```
 tesis-ssl/
-├── 2 microfonos/               # Sistema DOA de 2 micrófonos (GCC-PHAT)
-├── 4 microfonos/               # Sistema DOA de 4 micrófonos (MUSIC / SRP-PHAT)
-├── Informe PFI.pdf		# Documento que desarrolla el proyecto
-├── referencias/		# Papers citados (PDF)
-├── requirements.txt            # Dependencias Python unificadas (ambos sistemas)
-└── setup_venv.sh               # Script para crear el entorno virtual
+├── 2 microfonos/         # Sistema DOA de 2 micrófonos (GCC-PHAT)
+├── 4 microfonos/         # Sistema DOA de 4 micrófonos (MUSIC / SRP-PHAT)
+├── Informe PFI.pdf		    # Documento que desarrolla el proyecto
+├── Referencias/		      # PDFs de algunos de los papers y libros citados
+├── Planos/		            # Esquemáticos y PCBs para ambos sistemas, exportables a EasyEDA
+├── Extras/		            # Videos de los sistemas, informe de la PPS previa, entre otros
+├── requirements.txt      # Dependencias Python unificadas (ambos sistemas)
+└── setup_venv.sh         # Script para crear el entorno virtual
 ```
 
 ## Instalación (entorno unificado)
