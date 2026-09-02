@@ -2,17 +2,9 @@
 
 Estimación en tiempo real del ángulo de llegada de sonido usando dos micrófonos MEMS INMP441, algoritmo GCC-PHAT, seguimiento con servomotor, y registro de eventos acústicos.
 
-**Autor:** Rodrigo Boyé
-**Proyecto Final Integrador** — Ingeniería en Telecomunicaciones
-Universidad Nacional de Río Negro — Trabajo realizado con Invap
-Bariloche, Argentina, 2026
-
-
 ## Qué hace
 
 Captura audio estéreo desde dos micrófonos I2S, estima la dirección de la fuente sonora cuadro a cuadro (GCC-PHAT), y opcionalmente mueve un servomotor para apuntar hacia la fuente. Cuando la energía supera un umbral, registra el evento (ángulo, duración, confianza) en un CSV.
-
-Salida angular: 0° a 180°, donde 90° es el frente del array, 0° el extremo derecho y 180° el izquierdo. Con dos micrófonos solo se resuelve azimut en un plano — no hay elevación ni distinción arriba/abajo.
 
 
 ## Archivos
@@ -28,10 +20,9 @@ Salida angular: 0° a 180°, donde 90° es el frente del array, 0° el extremo d
 
 ## Hardware necesario
 
-- Raspberry Pi (probado en 3A+) con Raspberry Pi OS
+- Raspberry Pi
 - 2× micrófonos INMP441 (MEMS, salida I2S, omnidireccionales)
 - 1× servomotor estándar (SG90 o similar) — opcional
-- Cables, protoboard, resistor 100 kΩ pull-down en la línea SD
 
 
 ## Conexiones
@@ -172,82 +163,6 @@ Todos vía línea de comandos. Defaults en `DEFAULT_CONFIG` al inicio del códig
 | `--sim-angle` | 60 | Ángulo de la fuente simulada (°). |
 | `--sim-freq` | 1000 | Frecuencia del tono simulado (Hz). |
 | `--sim-snr` | 20 | SNR de la simulación (dB). |
-
-
-## Registro de eventos
-
-Formato del CSV (`eventos_doa.csv`):
-
-```
-evento,timestamp_inicio,timestamp_fin,duracion_ms,angulo_promedio,angulo_std,confianza_promedio,energia_pico,num_frames
-1,1773084145.184,1773084145.900,716.0,120.3,1.2,0.854,6.05e-01,17
-```
-
-Timestamps en formato Unix. Conversión a hora legible:
-
-```python
-from datetime import datetime
-datetime.fromtimestamp(1773084145.184)
-```
-
-
-## Visualización en terminal
-
-```
-180°[──────────────●──────────────│─────────────────────────────]0°  θ= 136.2° srv=130.0° buf[▮▮▮▯▯] ✓ conf[████████░░]
-```
-
-- **Barra**: posición angular. `│` = centro (90°), `●` = ángulo estimado
-- **θ**: ángulo DOA estimado (promedio móvil de las últimas 10 estimaciones)
-- **srv**: ángulo actual del servo
-- **buf**: llenado del buffer del servo
-- **✓/⚠**: estimación válida o clampeada
-- **conf**: confianza del pico GCC-PHAT (10 barras = 1.0)
-
-Sin señal suficiente: `[SILENCIO]`. Al detectar un evento: `[EVENTO #3] θ=120.3°±1.2° | dur=716ms | E_pico=6.05e-01 | frames=17`.
-
-
-## Límites del sistema
-
-- **Frecuencia máxima útil (aliasing espacial)**: f_max = c/(2·d) ≈ 4900 Hz con d=3.5 cm (mic_distance real del código). Por encima, la fase entre micrófonos se envuelve y el TDOA estimado puede ser ambiguo. El pasabanda (`--bandpass-low`/`--bandpass-high`, default hasta 90% de f_max) recorta este contenido antes de resolver el TDOA.
-
-- **τ_max y ventana de búsqueda**: con d=3.5 cm, τ_max = d/c ≈ 102 µs, que a 48 kHz son ~4.9 muestras. La búsqueda del pico de correlación queda acotada a ±7 muestras (`max_delay_samples`, con margen). Es una ventana angosta — inherente a tener los mics tan cerca, no un bug — por eso la interpolación parabólica sobre el pico (en `gcc_phat_resolve`) es la que realmente define la resolución práctica, no el paso de 1 muestra.
-
-- **Resolución angular — no es uniforme, se degrada fuerte cerca de los extremos.** De θ = arccos(τ·c/d):
-
-  Δθ = Δ(cos θ) / sin θ
-
-  El error en cos θ es aproximadamente constante para un error de τ dado (fijado por el ruido/SNR y la calidad de la interpolación). Pero sin θ multiplica ese error, y sin θ → 0 cuando θ → 0° o 180° (endfire). Es decir: el mismo error de TDOA se traduce en pocos grados de error cerca de 90° (broadside) y en decenas de grados cerca de los extremos.
-
-  Números concretos con d=3.5 cm, fs=48 kHz, e interpolación parabólica razonable (Δτ_efectivo ≈ 2 µs, Δcos θ ≈ 0.02):
-
-  | θ (verdadero) | sin θ | Δθ aprox. |
-  |---|---|---|
-  | 90° (broadside) | 1.00 | ~1° |
-  | 45° | 0.71 | ~1.6° |
-  | 20° | 0.34 | ~3.4° |
-  | 10° | 0.17 | ~6.7° |
-  | 3° | 0.05 | ~23° (ya no es una estimación útil) |
-
-  Sin interpolación (paso de 1 muestra, Δτ = 1/fs ≈ 20.8 µs, Δcos θ ≈ 0.204) el mismo efecto es mucho más marcado: ~11.7° en broadside y prácticamente inutilizable por debajo de ~20-30° de endfire. (El valor "~18.4°" que imprime el programa al arrancar es una estimación gruesa distinta — rango total/pasos totales — pensada como referencia rápida en consola, no el valor exacto en broadside; por eso el código la marca como "Estimación gruesa".)
-
-  Consecuencia práctica: si la aplicación necesita precisión angular cerca de los extremos del rango (0°/180°), este array de 2 mics en línea no es la geometría adecuada — es una limitación física de la geometría, no del algoritmo GCC-PHAT. Vale la pena dejarlo explícito en la tesis como resultado esperado, no como falla de calibración si aparece en las mediciones.
-
-- **Ambigüedad arriba/abajo**: con 2 micrófonos en línea existe cono de confusión (resolverlo requiere ≥3 mics fuera del plano).
-- **Reverberación**: GCC-PHAT es robusto ante reverberación moderada; en ambientes muy reverberantes puede haber picos espurios (subir `--servo-min-conf` ayuda; el pasabanda también reduce la contribución de bins con fase inconsistente entre bloques, dado que `--acc-blocks` promedia el PHAT ya normalizado a fase).
-- **Velocidad del sonido**: default 343 m/s (aire, ~20°C). Ajustable en `speed_of_sound` dentro de `DEFAULT_CONFIG`.
-
-
-## Ajuste de umbrales
-
-1. Ejecutar sin servo y observar el valor de energía (`E=`) en la terminal.
-2. En silencio, anotar el nivel de energía y setear `--umbral-ruido` un poco por encima.
-3. Generar el sonido a detectar (aplauso, voz fuerte) y anotar su energía.
-4. Setear `--umbral-evento` entre ambos niveles.
-
-```bash
-python3 gccphat_servo_2mics.py --umbral-ruido 1e-5 --umbral-evento 1e-3
-```
 
 
 ## Troubleshooting
