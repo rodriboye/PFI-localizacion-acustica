@@ -85,6 +85,16 @@ Flashear normalmente. Al conectar el USB a la RPi, el ESP32 se resetea automáti
 
 ## Uso y Opciones (CLI)
 
+Para funcionar, se debe estar dentro del entorno virtual y con pigpiod activado
+
+```bash
+# Activar el venv
+source venv/bin/active
+
+# Activar pigpiod
+sudo pigpiod -t 0 
+```
+
 El sistema incluye múltiples parámetros y modos de operación configurables vía línea de comandos.
 
 ```bash
