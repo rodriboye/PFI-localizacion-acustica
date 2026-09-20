@@ -32,7 +32,7 @@ tesis-ssl/
 ├── Informe PFI.pdf    # Documento que desarrolla el proyecto
 ├── Referencias/		   # PDFs de algunos de los papers y libros citados
 ├── Planos/		         # Esquemáticos y PCBs para ambos sistemas, exportables a EasyEDA
-├── Extras/		         # Videos de los sistemas, informe de la PPS previa, entre otros
+├── Extras/		         # Informe de la PPS previa y otros archivos adicionales
 ├── requirements.txt   # Dependencias Python unificadas (ambos sistemas)
 └── setup_venv.sh      # Script para crear el entorno virtual
 ```
