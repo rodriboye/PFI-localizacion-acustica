@@ -19,6 +19,10 @@ Estimación de la dirección de arribo (DOA) de una fuente sonora en tiempo real
 
 Cada carpeta es autocontenida: tiene su propio README con instalación, uso y parámetros. Ver esos archivos para el detalle de cada sistema.
 
+## Video demostración
+
+https://github.com/user-attachments/assets/020ff2f3-9323-42ff-aea0-69de5fac904a
+
 ## Estructura del repositorio
 
 ```
